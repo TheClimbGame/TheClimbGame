@@ -593,11 +593,14 @@ void keyPressed() {
       }
     }
   }
-  if (keyCode==98) {
+  if (keyCode=='98') {
     life.lifeCounter=3;
     score.s=0;
     extra.time=0;
     extra.redemp=false;
+    increase=true;
+    extra.mouseCounter=0;
+
   }
   if (keyPressed)
   {
