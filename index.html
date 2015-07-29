@@ -289,10 +289,14 @@
 					document.getElementById('ep').className+= " blurred";
 					document.getElementById('ep').style.zIndex= -2;
 				}
+				if(id == 'e'){
+					document.getElementById('authors').style.width= " 70%";
+				}
 			}
 			function hideStuff(id) {
 				document.getElementById(id).style.display = 'none';
 				document.getElementById(id+'d').style.textAlign = ' center';
+				document.getElementById('authors').style.width= " 100%";
 				if(id !='k'){
 					document.getElementById('kp').className= " face";
 				}
