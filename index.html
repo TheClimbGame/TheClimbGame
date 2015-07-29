@@ -271,21 +271,27 @@
 			}
 			function showStuff(id) {
 				document.getElementById(id).style.display = 'block';
+				document.getElementById(id+'d').style.textAlign = ' left';
 				if(id !='k'){
 					document.getElementById('kp').className+= " blurred";
+					document.getElementById('kp').style.zIndex= -2;
 				}
 				if(id !='v'){
 					document.getElementById('vp').className+= " blurred";
+					document.getElementById('vp').style.zIndex= -2;
 				}
 				if(id !='m'){
 					document.getElementById('mp').className+= " blurred";
+					document.getElementById('mp').style.zIndex= -2;
 				}
 				if(id !='e'){
 					document.getElementById('ep').className+= " blurred";
+					document.getElementById('ep').style.zIndex= -2;
 				}
 			}
 			function hideStuff(id) {
 				document.getElementById(id).style.display = 'none';
+				document.getElementById(id+'d').style.textAlign = ' center';
 				if(id !='k'){
 					document.getElementById('kp').className= " face";
 				}
