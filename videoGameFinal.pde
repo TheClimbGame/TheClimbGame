@@ -362,7 +362,7 @@ class Life {
       text("Game Over!", 100, 350); 
       fill(255, 255, 255);
       textFont(font, 25);
-      text("Press "B" key to replay the game", 250, 500);
+      text("Press b key to replay the game", 250, 500);
     }
   }
 }
@@ -593,7 +593,7 @@ void keyPressed() {
       }
     }
   }
-  if (keyCode=='98') {
+  if (key=='b') {
     life.lifeCounter=3;
     score.s=0;
     extra.time=0;
@@ -718,7 +718,7 @@ class ExtraLife {
       text("Game Over!", 100, 350);
       fill(255,255,255);
       textFont(font, 25);
-      text("Press "B" key to replay the game", 200, 500);
+      text("Press b key to replay the game", 200, 500);
       hx=-800;
       hy=-800;
     }
@@ -751,7 +751,7 @@ void drawGameWon() {
   image(finalBackground, 0, 0, 780, 600);
   fill(255,255,255);
   textFont(font, 25);
-  text("Press "B" key to replay the game", 200, 500);
+  text("Press b key to replay the game", 200, 500);
   int girldX=gameOneAnimation/2;
   int girldY=.00255*girldX*girldX;
   if ((330-girldY)<=70) {
