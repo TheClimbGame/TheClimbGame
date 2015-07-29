@@ -372,7 +372,7 @@ class Score {
     s=0;
   }
   void increaseScore() {
-    if (red==false && words.y+monsizefactor*130>450 && increase==true && scoreIncrease== true) {
+    if (red==false && words.y+monsizefactor*130>490 && increase==true && scoreIncrease== true) {
       s++;
       scoreIncrease=false;
     }
