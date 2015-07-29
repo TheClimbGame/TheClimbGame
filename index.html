@@ -127,19 +127,14 @@
 		align: center;
 		margin: 0px 0px 0px 0px;
 		padding: 0px 0px 0px 0px;
-		//		filter: blur(5px);
-		// Browser Specific
-		//-webkit-filter: blur(5px);
-		//-moz-filter: blur(5px);
-		//-o-filter: blur(5px);
-		//-ms-filter: blur(5px);
+
 	}
 	.face{
 		width: 200px;
 		border-radius: 100px;
 		margin: 80px 40px 40px 40px;
 		box-shadow: 5px 5px 20px #36454f;
-		z-index: 20;
+		z-index: 5;
 		
 		
 	}
@@ -161,7 +156,7 @@
 	}
 	.blurred{
 		filter: blur(4px);
-		// Browser Specific
+
 		-webkit-filter: blur(4px);
 		-moz-filter: blur(4px);
 		-o-filter: blur(4px);
@@ -176,14 +171,104 @@
 	}
 	td{
 		vertical-align:top;
-		
 		margin: auto 100px auto auto;
+		z-index: -1;
+	}
+	#speech{
+		position: absolute;
+        top: 300px;
+		left: 400px;
+		width: 0px;
 	}
 		</style>
 		<!--[if lt IE 9]>
 			<script type="text/javascript">alert("Your browser does not support the canvas tag.");</script>
 		<![endif]-->
 		<script type="text/javascript">
+			var w=1;
+			var le=400;
+			var t=300;
+			var scrolled=false;
+			function slideIn() {
+				if (w<=350) {
+					w=w+.09*w;
+					le=le-6;
+					t=t-4;
+				document.getElementById('speech').style.width = w+'px';
+				document.getElementById('speech').style.top = t+'px';
+				document.getElementById('speech').style.left = le +'px';
+				setTimeout(slideIn,7); // call doMove() in 20 msec
+				}
+				else{
+					wobbleRight();
+				}
+			}
+			function wobbleRight(){
+				if (le<=90) {
+					le=le+8;
+					t=t+6.4;
+					w=w-.02*w;
+					document.getElementById('speech').style.width = w+'px';
+					document.getElementById('speech').style.top = t+'px';
+					document.getElementById('speech').style.left = le +'px';
+					setTimeout(wobbleRight,5);
+				}
+				else{
+					wobbleLeft();
+				}
+			}
+			function wobbleLeft(){
+				if (w<=300) {
+					le=le-2.05;
+					w=w+2;
+					document.getElementById('speech').style.width = w+'px';
+					document.getElementById('speech').style.top = t+'px';
+					document.getElementById('speech').style.left = le +'px';
+					setTimeout(wobbleLeft,9);
+				}				
+			}
+			function slideOut() {
+				if (w>=1) {
+					w=w-.07*w;
+					le=le+6;
+					t=t+4;
+				document.getElementById('speech').style.width = w+'px';
+				document.getElementById('speech').style.top = t+'px';
+				document.getElementById('speech').style.left = le +'px';
+				setTimeout(slideOut,7); // call doMove() in 20 msec
+				}
+				else{
+					document.getElementById('speech').style.display = 'none';
+					scrolled=true;
+				}
+			}
+			function wobbleRightOut(){
+				if (w<=350) {
+					le=le-8;
+					t=t-6.4;
+					w=w+.02*w;
+					document.getElementById('speech').style.width = w+'px';
+					document.getElementById('speech').style.top = t+'px';
+					document.getElementById('speech').style.left = le +'px';
+					setTimeout(wobbleRightOut,5);
+				}
+				else{
+					slideOut();
+				}
+			}
+			function wobbleLeftOut(){
+				if (le<=90) {
+					le=le+2.05;
+					w=w-2;
+					document.getElementById('speech').style.width = w+'px';
+					document.getElementById('speech').style.top = t+'px';
+					document.getElementById('speech').style.left = le +'px';
+					setTimeout(wobbleLeftOut,9);
+				}
+				else{
+					wobbleRightOut();
+				}
+			}
 			function showStuff(id) {
 				document.getElementById(id).style.display = 'block';
 				if(id !='k'){
@@ -215,7 +300,12 @@
 				}
 			}
 			function hideNotice(){
-					document.getElementById('notice').style.display=' none';
+				if (scrolled) {
+					document.getElementById('speech').style.display = 'none';
+				}
+				else{
+					wobbleLeftOut();
+				}
 			}
 		</script>
 		<script src="processing.js" type="text/javascript"></script>
@@ -230,18 +320,18 @@ function getProcessingSketchId () { return 'anything'; }
 				<marquee scrollamount="10"  id="cloudsmallback2"><img src="cloudsmallback.png"></marquee>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<h1>The Climb.</h1>
-		<p id="notice" class="headers">Click the girl to begin!</p>
+		<img id="speech" src="bubble.png">
 		<audio  autoplay loop >
 			<source src="joined.mp3" type="audio/mpeg" >
 		</audio>
-		<div id="content" onclick="hideNotice">
+		<div id="content" onclick="hideNotice()" onmouseover="slideIn()">
 			<div>
 				<canvas id="anything" data-processing-sources="videoGameFinal.pde" 
 						width="740" height="600" >
 					<p>Your browser does not support the canvas tag.</p>
 					<!-- Note: you can put any alternative content here. -->
 				</canvas>
-				<
+				
 				<noscript>
 					<p>JavaScript is required to view the contents of this page.</p>
 				</noscript>
@@ -259,17 +349,17 @@ function getProcessingSketchId () { return 'anything'; }
 			<p class="headers">The Authors</p>
 			<table id="authors" align="center" >
 				<tr>
-					<td id="kd">
-					<a href="#"><img id="kp" class="face" src="k1.png" onmouseover="showStuff('k')" onmouseout="hideStuff('k')"></a>
+					<td id="kd" onmouseover="showStuff('k')" onmouseout="hideStuff('k')">
+					<a href="#"><img id="kp" class="face" src="k1.png" ></a>
 					<img  id="k" class="faceinfo" src="k2.png" ></td>
-					<td id="vd">
-					<a href="#"><img id="vp"  class="face" src="v1.png" onmouseover="showStuff('v')" onmouseout="hideStuff('v')"></a>
+					<td id="vd" onmouseover="showStuff('v')" onmouseout="hideStuff('v')">
+					<a href="#"><img id="vp"  class="face" src="v1.png" ></a>
 					<img  id="v" class="faceinfo" src="v2.png" ></td>
-					<td id="md">
-					<a href="#"><img id="mp" class="face" src="m1.png" onmouseover="showStuff('m')" onmouseout="hideStuff('m')"></a>
+					<td id="md" onmouseover="showStuff('m')" onmouseout="hideStuff('m')">
+					<a href="#"><img id="mp" class="face" src="m1.png" ></a>
 					<img  id="m" class="faceinfo" src="m2.png" ></td>
-					<td id="ed">
-					<a href="#"><img id="ep" class="face" src="e1.png" onmouseover="showStuff('e')" onmouseout="hideStuff('e')"></a>
+					<td id="ed" onmouseover="showStuff('e')" onmouseout="hideStuff('e')">
+					<a href="#"><img id="ep" class="face" src="e1.png" ></a>
 					<img  id="e" class="faceinfo" src="e2.png" ></td>
 				</tr>
 			</table>
